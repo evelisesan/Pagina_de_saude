@@ -1,0 +1,324 @@
+{% extends "base.html" %}
+
+{% block title %}Exercícios para 40+ - Saúde e Bem-estar{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <h1 class="display-4 fw-bold mb-4">Exercícios para Pessoas Acima de 40 Anos</h1>
+                <p class="lead">Descubra exercícios seguros e eficazes adaptados especificamente para pessoas acima de 40 anos, focando em saúde, mobilidade e bem-estar.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-filter text-primary me-2"></i>
+                        Nível de Dificuldade
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="dificuldade" id="filter-beginner" value="iniciante">
+                            <label class="form-check-label" for="filter-beginner">
+                                <i class="fas fa-star text-success me-1"></i>Iniciante
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="dificuldade" id="filter-intermediate" value="intermediario">
+                            <label class="form-check-label" for="filter-intermediate">
+                                <i class="fas fa-star text-warning me-1"></i>Intermediário
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="dificuldade" id="filter-advanced" value="avancado">
+                            <label class="form-check-label" for="filter-advanced">
+                                <i class="fas fa-star text-danger me-1"></i>Avançado
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary w-100" id="apply-filters">
+                        <i class="fas fa-filter me-2"></i>Aplicar Filtros
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-lightbulb text-warning me-2"></i>
+                        Dicas Importantes
+                    </h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Sempre aqueça antes
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Respire profundamente
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Não force demais
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Hidrate-se bem
+                        </li>
+                        <li>
+                            <i class="fas fa-check text-success me-2"></i>
+                            Consulte um médico
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-9">
+            <div id="exercicios-container">
+                <div class="row g-4" id="exercicios-grid">
+                    {% for exercicio in exercicios %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card exercise-card h-100 {% if exercicio.dificuldade == 'iniciante' %}beginner-exercise{% endif %}">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h5 class="card-title">{{ exercicio.titulo }}</h5>
+                                    <span class="badge bg-{% if exercicio.dificuldade == 'iniciante' %}success{% elif exercicio.dificuldade == 'intermediario' %}warning{% else %}danger{% endif %}">
+                                        {{ exercicio.dificuldade|title }}
+                                    </span>
+                                </div>
+                                
+                                <p class="card-text">{{ exercicio.descricao }}</p>
+                                
+                                <div class="mb-3">
+                                    <small class="text-muted">
+                                        <i class="fas fa-clock me-1"></i>{{ exercicio.duracao }}
+                                    </small>
+                                    <small class="text-muted ms-3">
+                                        <i class="fas fa-repeat me-1"></i>{{ exercicio.series_repeticoes }}
+                                    </small>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <strong>Benefícios:</strong>
+                                    <ul class="list-unstyled mt-2">
+                                        {% for beneficio in exercicio.beneficios[:2] %}
+                                        <li><i class="fas fa-check text-success me-1"></i>{{ beneficio }}</li>
+                                        {% endfor %}
+                                        {% if exercicio.beneficios|length > 2 %}
+                                        <li><small class="text-muted">+{{ exercicio.beneficios|length - 2 }} benefícios</small></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                                
+                                <a href="/exercicios/{{ exercicio.id }}" class="btn btn-outline-primary">
+                                    <i class="fas fa-play me-1"></i>Ver Exercício
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h3 class="mb-4">
+                    <i class="fas fa-heart text-danger me-2"></i>
+                    Por que exercícios são importantes após os 40?
+                </h3>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="fas fa-bone text-primary mb-3" style="font-size: 2rem;"></i>
+                                <h5>Fortalece os Ossos</h5>
+                                <p>Ajuda a prevenir a osteoporose e mantém a densidade óssea.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="fas fa-heartbeat text-danger mb-3" style="font-size: 2rem;"></i>
+                                <h5>Melhora o Coração</h5>
+                                <p>Fortalece o sistema cardiovascular e reduz o risco de doenças cardíacas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="fas fa-brain text-info mb-3" style="font-size: 2rem;"></i>
+                                <h5>Saúde Mental</h5>
+                                <p>Reduz o estresse, melhora o humor e previne o declínio cognitivo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h3 class="text-center mb-4">
+                <i class="fas fa-calendar-alt text-primary me-2"></i>
+                Programa Semanal Sugerido
+            </h3>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Segunda-feira</h5>
+                            <p class="card-text">Caminhada + Alongamento</p>
+                            <small class="text-muted">30-45 minutos</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title text-success">Terça-feira</h5>
+                            <p class="card-text">Flexões de Parede + Agachamentos</p>
+                            <small class="text-muted">20-30 minutos</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title text-warning">Quarta-feira</h5>
+                            <p class="card-text">Descanso ou Yoga Suave</p>
+                            <small class="text-muted">15-20 minutos</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title text-info">Quinta-feira</h5>
+                            <p class="card-text">Caminhada + Exercícios de Equilíbrio</p>
+                            <small class="text-muted">35-45 minutos</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">Sexta-feira</h5>
+                            <p class="card-text">Treino de Força Leve</p>
+                            <small class="text-muted">25-35 minutos</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title text-secondary">Fim de Semana</h5>
+                            <p class="card-text">Atividades ao Ar Livre</p>
+                            <small class="text-muted">45-60 minutos</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let allExercicios = {{ exercicios|tojson }};
+
+function displayExercicios(exercicios) {
+    const grid = document.getElementById('exercicios-grid');
+    grid.innerHTML = '';
+    
+    exercicios.forEach(exercicio => {
+        const card = document.createElement('div');
+        card.className = 'col-md-6 col-lg-4';
+        
+        const dificuldadeClass = exercicio.dificuldade === 'iniciante' ? 'success' : 
+                               exercicio.dificuldade === 'intermediario' ? 'warning' : 'danger';
+        
+        card.innerHTML = `
+            <div class="card exercise-card h-100 ${exercicio.dificuldade === 'iniciante' ? 'beginner-exercise' : ''}">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h5 class="card-title">${exercicio.titulo}</h5>
+                        <span class="badge bg-${dificuldadeClass}">
+                            ${exercicio.dificuldade.charAt(0).toUpperCase() + exercicio.dificuldade.slice(1)}
+                        </span>
+                    </div>
+                    
+                    <p class="card-text">${exercicio.descricao}</p>
+                    
+                    <div class="mb-3">
+                        <small class="text-muted">
+                            <i class="fas fa-clock me-1"></i>${exercicio.duracao}
+                        </small>
+                        <small class="text-muted ms-3">
+                            <i class="fas fa-repeat me-1"></i>${exercicio.series_repeticoes}
+                        </small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <strong>Benefícios:</strong>
+                        <ul class="list-unstyled mt-2">
+                            ${exercicio.beneficios.slice(0, 2).map(beneficio => 
+                                `<li><i class="fas fa-check text-success me-1"></i>${beneficio}</li>`
+                            ).join('')}
+                            ${exercicio.beneficios.length > 2 ? 
+                                `<li><small class="text-muted">+${exercicio.beneficios.length - 2} benefícios</small></li>` : ''
+                            }
+                        </ul>
+                    </div>
+                    
+                    <a href="/exercicios/${exercicio.id}" class="btn btn-outline-primary">
+                        <i class="fas fa-play me-1"></i>Ver Exercício
+                    </a>
+                </div>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function applyFilters() {
+    const dificuldade = document.querySelector('input[name="dificuldade"]:checked')?.value;
+    
+    let filteredExercicios = allExercicios;
+    
+    if (dificuldade) {
+        filteredExercicios = allExercicios.filter(e => e.dificuldade === dificuldade);
+    }
+    
+    displayExercicios(filteredExercicios);
+}
+
+// Event listeners
+document.getElementById('apply-filters').addEventListener('click', applyFilters);
+
+// Aplicar filtros quando radio buttons mudam
+document.querySelectorAll('input[name="dificuldade"]').forEach(radio => {
+    radio.addEventListener('change', applyFilters);
+});
+</script>
+{% endblock %} 

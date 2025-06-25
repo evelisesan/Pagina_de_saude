@@ -1,0 +1,359 @@
+{% extends "base.html" %}
+
+{% block title %}Receitas Saudáveis e Baratas - Saúde e Bem-estar{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <h1 class="display-4 fw-bold mb-4">Receitas Saudáveis e Baratas</h1>
+                <p class="lead">Descubra receitas nutritivas, saborosas e acessíveis para manter uma alimentação equilibrada sem gastar muito.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fas fa-filter text-primary me-2"></i>
+                        Filtros
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <label for="search-input" class="form-label">Buscar receitas</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="search-input" placeholder="Ex: frango, quinoa...">
+                            <button class="btn btn-outline-primary" type="button" id="search-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Categoria</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="filter-vegetarian">
+                            <label class="form-check-label" for="filter-vegetarian">
+                                Vegetariano
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="filter-low-calorie">
+                            <label class="form-check-label" for="filter-low-calorie">
+                                Baixa Caloria
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="filter-budget">
+                            <label class="form-check-label" for="filter-budget">
+                                Baixo Orçamento
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary w-100" id="apply-filters">
+                        <i class="fas fa-filter me-2"></i>Aplicar Filtros
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-9">
+            <div id="receitas-container">
+                <div class="row g-4" id="receitas-grid">
+                    {% for receita in receitas %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card recipe-card h-100 {% if receita.vegetariano %}vegetarian-recipe{% endif %}">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h5 class="card-title">{{ receita.titulo }}</h5>
+                                    {% if receita.vegetariano %}
+                                    <span class="badge bg-success">
+                                        <i class="fas fa-seedling me-1"></i>Veg
+                                    </span>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <small class="text-muted">
+                                        <i class="fas fa-fire me-1"></i>{{ receita.calorias }} kcal
+                                    </small>
+                                    <small class="text-muted ms-3">
+                                        <i class="fas fa-clock me-1"></i>{{ receita.tempo_preparo }} min
+                                    </small>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <span class="badge bg-primary me-1">{{ receita.dificuldade }}</span>
+                                    {% if receita.baixa_caloria %}
+                                    <span class="badge bg-warning me-1">Baixa Caloria</span>
+                                    {% endif %}
+                                    {% if receita.orcamento == 'baixo' %}
+                                    <span class="badge bg-success">Baixo Custo</span>
+                                    {% endif %}
+                                </div>
+                                
+                                <p class="card-text">
+                                    {% for ingrediente in receita.ingredientes[:3] %}
+                                        {{ ingrediente }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                    {% if receita.ingredientes|length > 3 %}
+                                        <small class="text-muted">+{{ receita.ingredientes|length - 3 }} ingredientes</small>
+                                    {% endif %}
+                                </p>
+                                
+                                <a href="/receitas/{{ receita.id }}" class="btn btn-outline-primary">
+                                    <i class="fas fa-eye me-1"></i>Ver Receita
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div id="search-results" style="display: none;">
+                <div class="text-center mb-4">
+                    <h4 id="search-title">Resultados da busca</h4>
+                    <p id="search-count" class="text-muted"></p>
+                </div>
+                <div class="row g-4" id="search-grid"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h3 class="mb-4">
+                    <i class="fas fa-lightbulb text-warning me-2"></i>
+                    Dicas para economizar na cozinha
+                </h3>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="fas fa-shopping-cart text-primary mb-3" style="font-size: 2rem;"></i>
+                                <h5>Planeje suas compras</h5>
+                                <p>Faça uma lista antes de ir ao mercado e evite compras por impulso.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="fas fa-calendar text-success mb-3" style="font-size: 2rem;"></i>
+                                <h5>Cozinhe em lote</h5>
+                                <p>Prepare várias porções de uma vez e congele para usar durante a semana.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="fas fa-leaf text-warning mb-3" style="font-size: 2rem;"></i>
+                                <h5>Use ingredientes da estação</h5>
+                                <p>Frutas e legumes da estação são mais baratos e nutritivos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let allReceitas = {{ receitas|tojson }};
+
+function displayReceitas(receitas) {
+    const grid = document.getElementById('receitas-grid');
+    grid.innerHTML = '';
+    
+    receitas.forEach(receita => {
+        const card = document.createElement('div');
+        card.className = 'col-md-6 col-lg-4';
+        card.innerHTML = `
+            <div class="card recipe-card h-100 ${receita.vegetariano ? 'vegetarian-recipe' : ''}">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h5 class="card-title">${receita.titulo}</h5>
+                        ${receita.vegetariano ? '<span class="badge bg-success"><i class="fas fa-seedling me-1"></i>Veg</span>' : ''}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <small class="text-muted">
+                            <i class="fas fa-fire me-1"></i>${receita.calorias} kcal
+                        </small>
+                        <small class="text-muted ms-3">
+                            <i class="fas fa-clock me-1"></i>${receita.tempo_preparo} min
+                        </small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <span class="badge bg-primary me-1">${receita.dificuldade}</span>
+                        ${receita.baixa_caloria ? '<span class="badge bg-warning me-1">Baixa Caloria</span>' : ''}
+                        ${receita.orcamento === 'baixo' ? '<span class="badge bg-success">Baixo Custo</span>' : ''}
+                    </div>
+                    
+                    <p class="card-text">
+                        ${receita.ingredientes.slice(0, 3).join(', ')}
+                        ${receita.ingredientes.length > 3 ? `<small class="text-muted">+${receita.ingredientes.length - 3} ingredientes</small>` : ''}
+                    </p>
+                    
+                    <a href="/receitas/${receita.id}" class="btn btn-outline-primary">
+                        <i class="fas fa-eye me-1"></i>Ver Receita
+                    </a>
+                </div>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function displaySearchResults(receitas, termo) {
+    const searchResults = document.getElementById('search-results');
+    const receitasContainer = document.getElementById('receitas-container');
+    const searchGrid = document.getElementById('search-grid');
+    const searchTitle = document.getElementById('search-title');
+    const searchCount = document.getElementById('search-count');
+    
+    searchTitle.textContent = `Resultados para "${termo}"`;
+    searchCount.textContent = `${receitas.length} receita(s) encontrada(s)`;
+    
+    searchGrid.innerHTML = '';
+    
+    receitas.forEach(receita => {
+        const card = document.createElement('div');
+        card.className = 'col-md-6 col-lg-4';
+        card.innerHTML = `
+            <div class="card recipe-card search-result h-100 ${receita.vegetariano ? 'vegetarian-recipe' : ''}">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h5 class="card-title">${receita.titulo}</h5>
+                        ${receita.vegetariano ? '<span class="badge bg-success"><i class="fas fa-seedling me-1"></i>Veg</span>' : ''}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <small class="text-muted">
+                            <i class="fas fa-fire me-1"></i>${receita.calorias} kcal
+                        </small>
+                        <small class="text-muted ms-3">
+                            <i class="fas fa-clock me-1"></i>${receita.tempo_preparo} min
+                        </small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <span class="badge bg-primary me-1">${receita.dificuldade}</span>
+                        ${receita.baixa_caloria ? '<span class="badge bg-warning me-1">Baixa Caloria</span>' : ''}
+                        ${receita.orcamento === 'baixo' ? '<span class="badge bg-success">Baixo Custo</span>' : ''}
+                    </div>
+                    
+                    <p class="card-text">
+                        ${receita.ingredientes.slice(0, 3).join(', ')}
+                        ${receita.ingredientes.length > 3 ? `<small class="text-muted">+${receita.ingredientes.length - 3} ingredientes</small>` : ''}
+                    </p>
+                    
+                    <a href="/receitas/${receita.id}" class="btn btn-outline-primary">
+                        <i class="fas fa-eye me-1"></i>Ver Receita
+                    </a>
+                </div>
+            </div>
+        `;
+        searchGrid.appendChild(card);
+    });
+    
+    receitasContainer.style.display = 'none';
+    searchResults.style.display = 'block';
+    
+    // Scroll para os resultados da busca
+    searchResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function applyFilters() {
+    const vegetariano = document.getElementById('filter-vegetarian').checked;
+    const baixaCaloria = document.getElementById('filter-low-calorie').checked;
+    const baixoOrcamento = document.getElementById('filter-budget').checked;
+    
+    let filteredReceitas = allReceitas;
+    
+    if (vegetariano) {
+        filteredReceitas = filteredReceitas.filter(r => r.vegetariano);
+    }
+    
+    if (baixaCaloria) {
+        filteredReceitas = filteredReceitas.filter(r => r.baixa_caloria);
+    }
+    
+    if (baixoOrcamento) {
+        filteredReceitas = filteredReceitas.filter(r => r.orcamento === 'baixo');
+    }
+    
+    document.getElementById('receitas-container').style.display = 'block';
+    document.getElementById('search-results').style.display = 'none';
+    displayReceitas(filteredReceitas);
+}
+
+// Event listeners com scrollIntoView
+document.addEventListener('DOMContentLoaded', function() {
+    const searchBtn = document.getElementById('search-btn');
+    const searchInput = document.getElementById('search-input');
+    const applyFiltersBtn = document.getElementById('apply-filters');
+    const filterCheckboxes = [
+        document.getElementById('filter-vegetarian'),
+        document.getElementById('filter-low-calorie'),
+        document.getElementById('filter-budget')
+    ];
+    
+    // Busca de receitas
+    searchBtn.addEventListener('click', function() {
+        const termo = searchInput.value.trim();
+        if (termo) {
+            // Scroll para o botão antes de clicar
+            searchBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => {
+                fetch(`/api/buscar-receitas?q=${encodeURIComponent(termo)}`)
+                    .then(response => response.json())
+                    .then(receitas => {
+                        displaySearchResults(receitas, termo);
+                    });
+            }, 500);
+        }
+    });
+    
+    // Busca com Enter
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            searchBtn.click();
+        }
+    });
+    
+    // Aplicar filtros
+    applyFiltersBtn.addEventListener('click', function() {
+        applyFiltersBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+            applyFilters();
+        }, 500);
+    });
+    
+    // Filtros automáticos
+    filterCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            checkbox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => {
+                applyFilters();
+            }, 500);
+        });
+    });
+});
+</script>
+{% endblock %} 

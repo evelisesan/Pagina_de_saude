@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block title %}Calculadora de Calorias - Saúde e Bem-estar{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <h1 class="display-4 fw-bold mb-4">Calculadora de Calorias</h1>
+                <p class="lead">Descubra quantas calorias você precisa consumir diariamente para manter, perder ou ganhar peso de forma saudável.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body p-5">
+                    <h3 class="card-title text-center mb-4">
+                        <i class="fas fa-calculator text-primary me-2"></i>
+                        Calcule suas necessidades calóricas
+                    </h3>
+                    
+                    <form id="calorias-form">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="age-input" class="form-label">Idade</label>
+                                <input type="number" class="form-control" id="age-input" name="idade" required min="15" max="100">
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="gender-select" class="form-label">Gênero</label>
+                                <select class="form-select" id="gender-select" name="genero" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="feminino">Feminino</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="weight-input" class="form-label">Peso (kg)</label>
+                                <input type="number" class="form-control" id="weight-input" name="peso" required min="30" max="300" step="0.1">
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="height-input" class="form-label">Altura (cm)</label>
+                                <input type="number" class="form-control" id="height-input" name="altura" required min="100" max="250">
+                            </div>
+                            
+                            <div class="col-12">
+                                <label for="activity-level" class="form-label">Nível de Atividade Física</label>
+                                <select class="form-select" id="activity-level" name="nivel_atividade" required>
+                                    <option value="">Selecione seu nível de atividade...</option>
+                                    <option value="sedentario">Sedentário (pouco ou nenhum exercício)</option>
+                                    <option value="leve">Levemente ativo (exercício leve 1-3 dias/semana)</option>
+                                    <option value="moderado">Moderadamente ativo (exercício moderado 3-5 dias/semana)</option>
+                                    <option value="ativo">Muito ativo (exercício intenso 6-7 dias/semana)</option>
+                                    <option value="muito_ativo">Extremamente ativo (exercício muito intenso, trabalho físico)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-12 text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg" id="calculate-btn">
+                                    <i class="fas fa-calculator me-2"></i>Calcular Calorias
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div id="resultado" class="mt-5" style="display: none;">
+                        <div class="alert alert-success">
+                            <h4 class="alert-heading">
+                                <i class="fas fa-chart-line me-2"></i>
+                                Suas calorias diárias recomendadas
+                            </h4>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="text-center p-3 bg-light rounded">
+                                        <h5 class="text-primary">Calorias Diárias</h5>
+                                        <h2 class="fw-bold" id="calorias-diarias">0</h2>
+                                        <small class="text-muted">kcal/dia</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center p-3 bg-light rounded">
+                                        <h5 class="text-success">Taxa Metabólica Basal</h5>
+                                        <h2 class="fw-bold" id="tmb">0</h2>
+                                        <small class="text-muted">kcal/dia</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-4">
+                                    <div class="text-center">
+                                        <h6 class="text-danger">Para Perder Peso</h6>
+                                        <p class="fw-bold" id="perder-peso">0 kcal</p>
+                                        <small class="text-muted">-500 kcal/dia</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="text-center">
+                                        <h6 class="text-primary">Manter Peso</h6>
+                                        <p class="fw-bold" id="manter-peso">0 kcal</p>
+                                        <small class="text-muted">Calorias calculadas</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="text-center">
+                                        <h6 class="text-success">Para Ganhar Peso</h6>
+                                        <p class="fw-bold" id="ganhar-peso">0 kcal</p>
+                                        <small class="text-muted">+500 kcal/dia</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h3 class="text-center mb-4">
+                    <i class="fas fa-info-circle text-primary me-2"></i>
+                    Como funciona o cálculo?
+                </h3>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="fas fa-brain text-primary me-2"></i>
+                                    Taxa Metabólica Basal (TMB)
+                                </h5>
+                                <p class="card-text">É a quantidade de calorias que seu corpo queima em repouso para manter funções básicas como respiração, circulação e produção celular.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="fas fa-running text-success me-2"></i>
+                                    Fator de Atividade
+                                </h5>
+                                <p class="card-text">Multiplicamos a TMB por um fator baseado no seu nível de atividade física para obter o gasto calórico total diário.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h3 class="text-center mb-4">
+                <i class="fas fa-lightbulb text-warning me-2"></i>
+                Dicas para uma alimentação saudável
+            </h3>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <i class="fas fa-apple-alt text-success mb-3" style="font-size: 3rem;"></i>
+                        <h5>Frutas e Legumes</h5>
+                        <p>Consuma pelo menos 5 porções de frutas e legumes por dia para obter vitaminas e minerais essenciais.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <i class="fas fa-tint text-info mb-3" style="font-size: 3rem;"></i>
+                        <h5>Hidratação</h5>
+                        <p>Beba pelo menos 2 litros de água por dia para manter o corpo hidratado e funcionando corretamente.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <i class="fas fa-clock text-warning mb-3" style="font-size: 3rem;"></i>
+                        <h5>Refeições Regulares</h5>
+                        <p>Faça 5-6 refeições pequenas por dia para manter o metabolismo ativo e evitar picos de fome.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('calorias-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const data = {
+        idade: parseInt(formData.get('idade')),
+        genero: formData.get('genero'),
+        peso: parseFloat(formData.get('peso')),
+        altura: parseFloat(formData.get('altura')),
+        nivel_atividade: formData.get('nivel_atividade')
+    };
+    
+    fetch('/api/calcular-calorias', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        document.getElementById('calorias-diarias').textContent = result.calorias_diarias;
+        document.getElementById('tmb').textContent = result.tmb;
+        document.getElementById('perder-peso').textContent = (result.calorias_diarias - 500) + ' kcal';
+        document.getElementById('manter-peso').textContent = result.calorias_diarias + ' kcal';
+        document.getElementById('ganhar-peso').textContent = (result.calorias_diarias + 500) + ' kcal';
+        
+        document.getElementById('resultado').style.display = 'block';
+        document.getElementById('resultado').scrollIntoView({ behavior: 'smooth' });
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro ao calcular calorias. Tente novamente.');
+    });
+});
+</script>
+{% endblock %} 

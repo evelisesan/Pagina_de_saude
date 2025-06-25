@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+
+{% block title %}Calculadora de IMC - Saúde e Bem-estar{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <h1 class="display-4 fw-bold mb-4">Calculadora de IMC</h1>
+                <p class="lead">Calcule seu Índice de Massa Corporal (IMC) e descubra se seu peso está adequado para sua altura.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body p-5">
+                    <h3 class="card-title text-center mb-4">
+                        <i class="fas fa-weight text-primary me-2"></i>
+                        Calcule seu IMC
+                    </h3>
+                    
+                    <form id="imc-form">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="weight-input" class="form-label">Peso (kg)</label>
+                                <input type="number" class="form-control" id="weight-input" name="peso" required min="30" max="300" step="0.1">
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="height-input" class="form-label">Altura (metros)</label>
+                                <input type="number" class="form-control" id="height-input" name="altura" required min="1.0" max="2.5" step="0.01">
+                                <small class="text-muted">Ex: 1.70 para 1 metro e 70 centímetros</small>
+                            </div>
+                            
+                            <div class="col-12 text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg" id="calculate-bmi-btn">
+                                    <i class="fas fa-calculator me-2"></i>Calcular IMC
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div id="resultado-imc" class="mt-5" style="display: none;">
+                        <div class="alert alert-info">
+                            <h4 class="alert-heading">
+                                <i class="fas fa-chart-line me-2"></i>
+                                Seu resultado de IMC
+                            </h4>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="text-center p-3 bg-light rounded">
+                                        <h5 class="text-primary">Seu IMC</h5>
+                                        <h2 class="fw-bold" id="imc-valor">0</h2>
+                                        <small class="text-muted">kg/m²</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center p-3 bg-light rounded">
+                                        <h5 class="text-success">Classificação</h5>
+                                        <h2 class="fw-bold" id="imc-classificacao">-</h2>
+                                        <small class="text-muted" id="imc-descricao">-</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h3 class="text-center mb-4">
+                    <i class="fas fa-info-circle text-primary me-2"></i>
+                    Tabela de Classificação do IMC
+                </h3>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>IMC</th>
+                                <th>Classificação</th>
+                                <th>Descrição</th>
+                                <th>Risco para Saúde</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-danger">
+                                <td>< 18.5</td>
+                                <td><strong>Abaixo do Peso</strong></td>
+                                <td>Peso abaixo do recomendado para a altura</td>
+                                <td>Baixo (mas pode indicar desnutrição)</td>
+                            </tr>
+                            <tr class="table-success">
+                                <td>18.5 - 24.9</td>
+                                <td><strong>Peso Normal</strong></td>
+                                <td>Peso adequado para a altura</td>
+                                <td>Baixo</td>
+                            </tr>
+                            <tr class="table-warning">
+                                <td>25.0 - 29.9</td>
+                                <td><strong>Sobrepeso</strong></td>
+                                <td>Peso acima do recomendado</td>
+                                <td>Aumentado</td>
+                            </tr>
+                            <tr class="table-danger">
+                                <td>30.0 - 34.9</td>
+                                <td><strong>Obesidade Grau I</strong></td>
+                                <td>Obesidade moderada</td>
+                                <td>Alto</td>
+                            </tr>
+                            <tr class="table-danger">
+                                <td>35.0 - 39.9</td>
+                                <td><strong>Obesidade Grau II</strong></td>
+                                <td>Obesidade severa</td>
+                                <td>Muito Alto</td>
+                            </tr>
+                            <tr class="table-danger">
+                                <td>≥ 40.0</td>
+                                <td><strong>Obesidade Grau III</strong></td>
+                                <td>Obesidade mórbida</td>
+                                <td>Extremamente Alto</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h3 class="text-center mb-4">
+                <i class="fas fa-lightbulb text-warning me-2"></i>
+                Dicas para um IMC saudável
+            </h3>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-utensils text-primary me-2"></i>
+                                Alimentação Equilibrada
+                            </h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Consuma mais frutas e legumes
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Evite alimentos processados
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Controle o tamanho das porções
+                                </li>
+                                <li>
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Beba muita água
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-running text-success me-2"></i>
+                                Atividade Física
+                            </h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Pratique exercícios regularmente
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Caminhe pelo menos 30 min/dia
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Combine cardio e força
+                                </li>
+                                <li>
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Mantenha-se ativo durante o dia
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-primary text-white py-5">
+    <div class="container text-center">
+        <h3 class="mb-4">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Importante!
+        </h3>
+        <p class="lead mb-4">
+            O IMC é apenas uma ferramenta de triagem. Não leva em consideração fatores como massa muscular, 
+            densidade óssea, idade, sexo e etnia. Para uma avaliação completa da sua saúde, 
+            consulte um profissional de saúde.
+        </p>
+        <div class="row g-3 justify-content-center">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-user-md mb-3" style="font-size: 2rem;"></i>
+                    <h5>Consulte um Médico</h5>
+                    <p>Para avaliação completa da saúde</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-heartbeat mb-3" style="font-size: 2rem;"></i>
+                    <h5>Exames Regulares</h5>
+                    <p>Mantenha seus exames em dia</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-balance-scale mb-3" style="font-size: 2rem;"></i>
+                    <h5>Estilo de Vida</h5>
+                    <p>Foque em hábitos saudáveis</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('imc-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const data = {
+        peso: parseFloat(formData.get('peso')),
+        altura: parseFloat(formData.get('altura'))
+    };
+    
+    fetch('/api/calcular-imc', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        document.getElementById('imc-valor').textContent = result.imc;
+        document.getElementById('imc-classificacao').textContent = result.classificacao;
+        
+        // Definir descrição baseada na classificação
+        let descricao = '';
+        switch(result.classificacao) {
+            case 'Abaixo do Peso':
+                descricao = 'Considere ganhar peso de forma saudável';
+                break;
+            case 'Peso Normal':
+                descricao = 'Mantenha seus hábitos saudáveis';
+                break;
+            case 'Sobrepeso':
+                descricao = 'Considere perder alguns quilos';
+                break;
+            case 'Obesidade Grau I':
+                descricao = 'Procure orientação médica';
+                break;
+            case 'Obesidade Grau II':
+                descricao = 'Procure orientação médica urgente';
+                break;
+            case 'Obesidade Grau III':
+                descricao = 'Procure orientação médica imediata';
+                break;
+        }
+        document.getElementById('imc-descricao').textContent = descricao;
+        
+        document.getElementById('resultado-imc').style.display = 'block';
+        document.getElementById('resultado-imc').scrollIntoView({ behavior: 'smooth' });
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro ao calcular IMC. Tente novamente.');
+    });
+});
+</script>
+{% endblock %} 

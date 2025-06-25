@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block title %}{{ exercicio.titulo }} - Saúde e Bem-estar{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/exercicios">Exercícios</a></li>
+                        <li class="breadcrumb-item active">{{ exercicio.titulo }}</li>
+                    </ol>
+                </nav>
+                <h1 class="display-4 fw-bold mb-4">{{ exercicio.titulo }}</h1>
+                <div class="d-flex gap-3 mb-3">
+                    <span class="badge bg-{% if exercicio.dificuldade == 'iniciante' %}success{% elif exercicio.dificuldade == 'intermediario' %}warning{% else %}danger{% endif %}">
+                        {{ exercicio.dificuldade|title }}
+                    </span>
+                    <span class="badge bg-primary">
+                        <i class="fas fa-clock me-1"></i>{{ exercicio.duracao }}
+                    </span>
+                    <span class="badge bg-info">
+                        <i class="fas fa-repeat me-1"></i>{{ exercicio.series_repeticoes }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <i class="fas fa-play-circle text-primary me-2"></i>
+                        Como Fazer
+                    </h3>
+                    <div class="exercise-steps">
+                        {% for passo in exercicio.como_fazer.split('\n') %}
+                        {% if passo.strip() %}
+                        <div class="step-item mb-3">
+                            <div class="d-flex">
+                                <div class="step-number me-3">
+                                    <span class="badge bg-primary rounded-circle">{{ loop.index }}</span>
+                                </div>
+                                <div class="step-content">
+                                    <p class="mb-0">{{ passo.strip() }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <i class="fas fa-heart text-success me-2"></i>
+                        Benefícios
+                    </h3>
+                    <ul class="list-group list-group-flush">
+                        {% for beneficio in exercicio.beneficios %}
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-check-circle text-success me-3"></i>
+                            {{ beneficio }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                        Precauções
+                    </h3>
+                    <ul class="list-group list-group-flush">
+                        {% for precaucao in exercicio.precaucoes %}
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-shield-alt text-warning me-3"></i>
+                            {{ precaucao }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <i class="fas fa-info-circle text-primary me-2"></i>
+                        Informações do Exercício
+                    </h4>
+                    
+                    <div class="exercise-info">
+                        <div class="d-flex justify-content-between mb-3">
+                            <span><i class="fas fa-clock me-2"></i>Duração:</span>
+                            <span class="fw-bold" id="duration">{{ exercicio.duracao }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span><i class="fas fa-repeat me-2"></i>Séries/Repetições:</span>
+                            <span class="fw-bold" id="sets-reps">{{ exercicio.series_repeticoes }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span><i class="fas fa-signal me-2"></i>Dificuldade:</span>
+                            <span class="fw-bold">{{ exercicio.dificuldade|title }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span><i class="fas fa-home me-2"></i>Local:</span>
+                            <span class="fw-bold">Casa/Academia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <i class="fas fa-video text-primary me-2"></i>
+                        Vídeo Demonstrativo
+                    </h4>
+                    <div class="video-placeholder" id="exercise-video">
+                        <div class="ratio ratio-16x9">
+                            <div class="bg-light d-flex align-items-center justify-content-center">
+                                <div class="text-center">
+                                    <i class="fas fa-play-circle text-primary" style="font-size: 3rem;"></i>
+                                    <p class="mt-2 mb-0">Vídeo demonstrativo</p>
+                                    <small class="text-muted">Em breve</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <i class="fas fa-lightbulb text-warning me-2"></i>
+                        Dicas do Exercício
+                    </h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Mantenha a respiração constante
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Execute movimentos lentos e controlados
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Pare se sentir dor ou desconforto
+                        </li>
+                        <li>
+                            <i class="fas fa-check text-success me-2"></i>
+                            Aumente gradualmente a intensidade
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <i class="fas fa-calendar-plus text-primary me-2"></i>
+                        Adicionar ao Treino
+                    </h4>
+                    <button class="btn btn-primary w-100 mb-2">
+                        <i class="fas fa-plus me-2"></i>Adicionar ao Meu Treino
+                    </button>
+                    <button class="btn btn-outline-primary w-100">
+                        <i class="fas fa-share me-2"></i>Compartilhar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-5">
+    <div class="container">
+        <h3 class="text-center mb-4">
+            <i class="fas fa-dumbbell text-primary me-2"></i>
+            Exercícios Relacionados
+        </h3>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card exercise-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-walking text-success mb-3" style="font-size: 2rem;"></i>
+                        <h5>Caminhada</h5>
+                        <p class="text-muted">30-45 min • Iniciante</p>
+                        <a href="/exercicios/1" class="btn btn-outline-primary btn-sm">Ver Exercício</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card exercise-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-hands text-warning mb-3" style="font-size: 2rem;"></i>
+                        <h5>Flexões de Parede</h5>
+                        <p class="text-muted">10-15 min • Iniciante</p>
+                        <a href="/exercicios/2" class="btn btn-outline-primary btn-sm">Ver Exercício</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card exercise-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chair text-info mb-3" style="font-size: 2rem;"></i>
+                        <h5>Agachamento com Cadeira</h5>
+                        <p class="text-muted">15-20 min • Iniciante</p>
+                        <a href="/exercicios/3" class="btn btn-outline-primary btn-sm">Ver Exercício</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.step-number {
+    min-width: 30px;
+}
+
+.step-number .badge {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.exercise-info {
+    font-size: 0.9rem;
+}
+
+.video-placeholder {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.breadcrumb a {
+    color: white;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent-color);
+}
+</style>
+{% endblock %} 

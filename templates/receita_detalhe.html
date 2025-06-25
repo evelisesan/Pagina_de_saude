@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block title %}{{ receita.titulo }} - Saúde e Bem-estar{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/receitas">Receitas</a></li>
+                        <li class="breadcrumb-item active">{{ receita.titulo }}</li>
+                    </ol>
+                </nav>
+                <h1 class="display-4 fw-bold mb-4">{{ receita.titulo }}</h1>
+                <div class="d-flex gap-3 mb-3">
+                    {% if receita.vegetariano %}
+                    <span class="badge bg-success">
+                        <i class="fas fa-seedling me-1"></i>Vegetariano
+                    </span>
+                    {% endif %}
+                    {% if receita.baixa_caloria %}
+                    <span class="badge bg-warning">
+                        <i class="fas fa-fire me-1"></i>Baixa Caloria
+                    </span>
+                    {% endif %}
+                    {% if receita.orcamento == 'baixo' %}
+                    <span class="badge bg-info">
+                        <i class="fas fa-dollar-sign me-1"></i>Baixo Custo
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <i class="fas fa-list text-primary me-2"></i>
+                        Ingredientes
+                    </h3>
+                    <ul class="list-group list-group-flush">
+                        {% for ingrediente in receita.ingredientes %}
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-check-circle text-success me-3"></i>
+                            {{ ingrediente }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <i class="fas fa-utensils text-primary me-2"></i>
+                        Modo de Preparo
+                    </h3>
+                    <div class="preparo-steps">
+                        {% for passo in receita.modo_preparo.split('\n') %}
+                        {% if passo.strip() %}
+                        <div class="step-item mb-3">
+                            <div class="d-flex">
+                                <div class="step-number me-3">
+                                    <span class="badge bg-primary rounded-circle">{{ loop.index }}</span>
+                                </div>
+                                <div class="step-content">
+                                    <p class="mb-0">{{ passo.strip() }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <i class="fas fa-info-circle text-primary me-2"></i>
+                        Informações Nutricionais
+                    </h4>
+                    
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <div class="nutrition-item">
+                                <h5 class="text-primary" id="calories-per-serving">{{ receita.calorias }}</h5>
+                                <small class="text-muted">Calorias</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="nutrition-item">
+                                <h5 class="text-success" id="cooking-time">{{ receita.tempo_preparo }}</h5>
+                                <small class="text-muted">Minutos</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="nutrition-details">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Dificuldade:</span>
+                            <span class="fw-bold" id="difficulty-level">{{ receita.dificuldade }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Categoria:</span>
+                            <span class="fw-bold">{{ receita.categoria|title }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Porções:</span>
+                            <span class="fw-bold">2-3 pessoas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <i class="fas fa-lightbulb text-warning me-2"></i>
+                        Dicas da Receita
+                    </h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Prepare todos os ingredientes antes de começar
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Use temperos frescos quando possível
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            Ajuste o sal ao seu gosto
+                        </li>
+                        <li>
+                            <i class="fas fa-check text-success me-2"></i>
+                            Sirva quente para melhor sabor
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <i class="fas fa-share-alt text-primary me-2"></i>
+                        Compartilhar
+                    </h4>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-primary btn-sm">
+                            <i class="fab fa-facebook"></i>
+                        </button>
+                        <button class="btn btn-outline-info btn-sm">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="btn btn-outline-success btn-sm">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-envelope"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-5">
+    <div class="container">
+        <h3 class="text-center mb-4">
+            <i class="fas fa-utensils text-primary me-2"></i>
+            Receitas Relacionadas
+        </h3>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card recipe-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-seedling text-success mb-3" style="font-size: 2rem;"></i>
+                        <h5>Salada de Quinoa</h5>
+                        <p class="text-muted">180 kcal • 20 min</p>
+                        <a href="/receitas/2" class="btn btn-outline-primary btn-sm">Ver Receita</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card recipe-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-soup text-warning mb-3" style="font-size: 2rem;"></i>
+                        <h5>Sopa de Lentilha</h5>
+                        <p class="text-muted">220 kcal • 45 min</p>
+                        <a href="/receitas/3" class="btn btn-outline-primary btn-sm">Ver Receita</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card recipe-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-fish text-info mb-3" style="font-size: 2rem;"></i>
+                        <h5>Salmão Assado</h5>
+                        <p class="text-muted">320 kcal • 30 min</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">Ver Receita</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.step-number {
+    min-width: 30px;
+}
+
+.step-number .badge {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nutrition-item {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.nutrition-item h5 {
+    margin-bottom: 5px;
+}
+
+.nutrition-details {
+    font-size: 0.9rem;
+}
+
+.breadcrumb a {
+    color: white;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent-color);
+}
+</style>
+{% endblock %} 
