@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opções de Temas - Saúde e Bem-estar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .tema {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+        }
+        .cores {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .cor {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #333;
+        }
+        .nome {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .codigo {
+            font-family: monospace;
+            background: #eee;
+            padding: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Opções de Temas para sua Aplicação</h1>
+    <p>Escolha um tema e copie os códigos de cores para o arquivo <code>templates/base.html</code></p>
+
+    <div class="tema">
+        <div class="nome">🌿 Tema Verde (Atual)</div>
+        <div class="cores">
+            <div class="cor" style="background: #2ecc71;"></div>
+            <div class="cor" style="background: #27ae60;"></div>
+            <div class="cor" style="background: #f39c12;"></div>
+        </div>
+        <div class="codigo">
+            --primary-color: #2ecc71;<br>
+            --secondary-color: #27ae60;<br>
+            --accent-color: #f39c12;
+        </div>
+    </div>
+
+    <div class="tema">
+        <div class="nome">🔵 Tema Azul (Profissional)</div>
+        <div class="cores">
+            <div class="cor" style="background: #3498db;"></div>
+            <div class="cor" style="background: #2980b9;"></div>
+            <div class="cor" style="background: #e74c3c;"></div>
+        </div>
+        <div class="codigo">
+            --primary-color: #3498db;<br>
+            --secondary-color: #2980b9;<br>
+            --accent-color: #e74c3c;
+        </div>
+    </div>
+
+    <div class="tema">
+        <div class="nome">🟣 Tema Roxo (Elegante)</div>
+        <div class="cores">
+            <div class="cor" style="background: #9b59b6;"></div>
+            <div class="cor" style="background: #8e44ad;"></div>
+            <div class="cor" style="background: #f1c40f;"></div>
+        </div>
+        <div class="codigo">
+            --primary-color: #9b59b6;<br>
+            --secondary-color: #8e44ad;<br>
+            --accent-color: #f1c40f;
+        </div>
+    </div>
+
+    <div class="tema">
+        <div class="nome">🟠 Tema Laranja (Energético)</div>
+        <div class="cores">
+            <div class="cor" style="background: #e67e22;"></div>
+            <div class="cor" style="background: #d35400;"></div>
+            <div class="cor" style="background: #3498db;"></div>
+        </div>
+        <div class="codigo">
+            --primary-color: #e67e22;<br>
+            --secondary-color: #d35400;<br>
+            --accent-color: #3498db;
+        </div>
+    </div>
+
+    <div class="tema">
+        <div class="nome">🔴 Tema Vermelho (Saúde)</div>
+        <div class="cores">
+            <div class="cor" style="background: #e74c3c;"></div>
+            <div class="cor" style="background: #c0392b;"></div>
+            <div class="cor" style="background: #f39c12;"></div>
+        </div>
+        <div class="codigo">
+            --primary-color: #e74c3c;<br>
+            --secondary-color: #c0392b;<br>
+            --accent-color: #f39c12;
+        </div>
+    </div>
+
+    <div class="tema">
+        <div class="nome">🟢 Tema Verde Escuro (Natureza)</div>
+        <div class="cores">
+            <div class="cor" style="background: #16a085;"></div>
+            <div class="cor" style="background: #138d75;"></div>
+            <div class="cor" style="background: #f39c12;"></div>
+        </div>
+        <div class="codigo">
+            --primary-color: #16a085;<br>
+            --secondary-color: #138d75;<br>
+            --accent-color: #f39c12;
+        </div>
+    </div>
+
+    <div class="tema">
+        <div class="nome">⚫ Tema Escuro (Moderno)</div>
+        <div class="cores">
+            <div class="cor" style="background: #34495e;"></div>
+            <div class="cor" style="background: #2c3e50;"></div>
+            <div class="cor" style="background: #e74c3c;"></div>
+        </div>
+        <div class="codigo">
+            --primary-color: #34495e;<br>
+            --secondary-color: #2c3e50;<br>
+            --accent-color: #e74c3c;
+        </div>
+    </div>
+
+    <h2>📝 Como Aplicar:</h2>
+    <ol>
+        <li>Escolha um tema acima</li>
+        <li>Abra o arquivo <code>templates/base.html</code></li>
+        <li>Localize a seção <code>:root</code> (linhas 10-15)</li>
+        <li>Substitua os valores das cores pelos do tema escolhido</li>
+        <li>Salve o arquivo</li>
+        <li>Faça commit e push para o GitHub</li>
+        <li>O Render fará o deploy automaticamente</li>
+    </ol>
+
+    <h2>🎨 Cores Personalizadas:</h2>
+    <p>Você também pode usar qualquer cor personalizada. Algumas sugestões:</p>
+    <ul>
+        <li><strong>Azul Médico:</strong> #007bff, #0056b3, #dc3545</li>
+        <li><strong>Verde Wellness:</strong> #28a745, #1e7e34, #ffc107</li>
+        <li><strong>Rosa Saúde:</strong> #e83e8c, #c73e6b, #17a2b8</li>
+        <li><strong>Dourado Premium:</strong> #ffc107, #e0a800, #6f42c1</li>
+    </ul>
+</body>
+</html> 
