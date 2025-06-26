@@ -1,0 +1,23 @@
+{
+  "name": "saude-bem-estar-app",
+  "version": "1.0.0",
+  "description": "Aplicação de Saúde e Bem-estar com testes automatizados",
+  "scripts": {
+    "test:e2e": "cypress run",
+    "test:e2e:open": "cypress open",
+    "test:e2e:headed": "cypress run --headed",
+    "test:all": "python tests/run_all_tests.py && npm run test:e2e"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.0"
+  },
+  "keywords": [
+    "saude",
+    "bem-estar",
+    "testes",
+    "cypress",
+    "flask"
+  ],
+  "author": "Seu Nome",
+  "license": "MIT"
+} 

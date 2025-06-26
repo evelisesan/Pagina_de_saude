@@ -1,416 +1,224 @@
-# Saúde e Bem-estar 
+# Aplicação de Saúde e Bem-estar
 
-> **ATENÇÃO:** Todas as alterações, correções e melhorias no projeto devem ser refletidas e documentadas neste README. O sistema de atualização automática garante que as informações estejam sempre corretas, mas revise e rode o script de atualização (`python update_readme.py`) sempre que fizer mudanças importantes!
-
-## 🌐 **APLICAÇÃO ONLINE**
-**Acesse a aplicação funcionando:** [https://pagina-de-saude.onrender.com/](https://pagina-de-saude.onrender.com/)
-
-## 📋 Descrição
-
-Este projeto implementa uma página web completa sobre saúde, controle de calorias, receitas saudáveis e exercícios físicos para pessoas acima de 40 anos, desenvolvida seguindo a metodologia TDD (Test-Driven Development) usando Robot Framework.
-
-## 🎯 Funcionalidades
-
-### ✅ Calculadora de Calorias
-- Cálculo personalizado baseado em idade, peso, altura e nível de atividade
-- Fórmula de Harris-Benedict para TMB (Taxa Metabólica Basal)
-- Recomendações para perder, manter ou ganhar peso
-- Interface responsiva e intuitiva
-
-### ✅ Receitas Saudáveis e Baratas
-- Catálogo de receitas nutritivas e acessíveis
-- Filtros por categoria (vegetariano, baixa caloria, baixo orçamento)
-- Busca por ingredientes em tempo real
-- Informações nutricionais detalhadas
-- Sistema de busca com resultados dinâmicos
-
-### ✅ Exercícios para 40+
-- Exercícios adaptados especificamente para pessoas acima de 40 anos
-- Filtros por nível de dificuldade (iniciante, intermediário, avançado)
-- Instruções passo a passo com vídeos demonstrativos
-- Benefícios e precauções detalhados
-- Programa semanal sugerido
-
-### ✅ Calculadora de IMC
-- Cálculo automático do Índice de Massa Corporal
-- Classificação e recomendações personalizadas
-- Tabela de referência completa
-- Dicas para um IMC saudável
-
-### ✅ Menu Mobile Responsivo
-- Menu hambúrguer funcional para dispositivos móveis
-- Navegação otimizada para touch
-- Overlay de menu com animações suaves
-- Design adaptativo para diferentes tamanhos de tela
-
-## 🎨 Temas e Personalização
-
-### 🌈 Paleta de Cores Pastéis (Atual)
-- **Azul Pastel** (`#87CEEB`): Cor principal - navbar, botões, ícones
-- **Azul Claro** (`#B0E0E6`): Cor secundária - gradientes, hover
-- **Rosa Pastel** (`#FFB6C1`): Cor de destaque - badges, alertas
-- **Laranja Pastel** (`#FFDAB9`): Hover de links, elementos interativos
-- **Lilás Pastel** (`#E6E6FA`): Receitas vegetarianas, elementos especiais
-
-### 🌙 Tema Escuro (Disponível)
-- Fundo escuro para melhor experiência noturna
-- Cores contrastantes para melhor legibilidade
-- Cards com fundo azul escuro
-- Campos de formulário adaptados
-
-### 🌿 Tema Verde (Anterior)
-- Cores naturais e relaxantes
-- Verde como cor principal (#2ecc71)
-- Laranja como cor de destaque (#f39c12)
-- Design limpo e profissional
-
-### 🎨 Personalização de Cores
-O projeto suporta fácil personalização de cores através das variáveis CSS no arquivo `templates/base.html`:
-
-```css
-:root {
-    --primary-color: #87CEEB;    /* Azul pastel */
-    --secondary-color: #B0E0E6;  /* Azul claro */
-    --accent-color: #FFB6C1;     /* Rosa pastel */
-    --accent-orange: #FFDAB9;    /* Laranja pastel */
-    --accent-lilac: #E6E6FA;     /* Lilás pastel */
-    --text-color: #2c3e50;       /* Cor do texto */
-    --light-bg: #f8f9fa;         /* Fundo claro */
-}
-```
+Uma aplicação web completa para saúde e bem-estar, desenvolvida com Flask e testada com uma pirâmide de testes abrangente.
 
 ## 🏗️ Arquitetura
 
+- **Backend**: Flask (Python)
+- **Frontend**: HTML, CSS, JavaScript, Bootstrap
+- **Testes**: Pirâmide completa de testes (Unitários, Integração, Performance, Segurança, Acessibilidade, E2E)
+
+## 🧪 Pirâmide de Testes
+
 ```
-Projeto_teste/
-├── app.py                          # Aplicação Flask principal
-├── requirements.txt                # Dependências Python
-├── README.md                       # Documentação (sempre atualizada)
-├── test_deploy.py                  # Script para testar deploy
-├── update_readme.py                # Script para atualizar README
-├── robot.yaml                      # Configuração Robot Framework
-├── render.yaml                     # Configuração para deploy no Render
-├── .gitignore                      # Arquivos ignorados pelo Git
-├── .pre-commit-config.yaml         # Configuração pre-commit hooks
-├── .github/workflows/              # GitHub Actions
-│   └── update-readme.yml           # Workflow de atualização automática
-├── tests/
-│   └── health_page_tests.robot     # Testes TDD com Robot Framework
-└── templates/
-    ├── base.html                   # Template base com menu mobile
-    ├── index.html                  # Página principal
-    ├── calorias.html               # Calculadora de calorias
-    ├── receitas.html               # Lista de receitas com busca
-    ├── receita_detalhe.html        # Detalhes da receita
-    ├── exercicios.html             # Lista de exercícios
-    ├── exercicio_detalhe.html      # Detalhes do exercício
-    └── imc.html                    # Calculadora de IMC
+🔺 E2E (Cypress) - Menos testes, mais complexos
+🔸 Integração - Testes de componentes
+🔻 Unitários - Mais testes, mais simples
+🔸 Performance - Testes de velocidade
+🔸 Segurança - Testes de vulnerabilidades
+🔸 Acessibilidade - Testes WCAG
 ```
 
-## 📊 Estatísticas do Projeto
+### Tipos de Teste
 
-- 📁 **Arquivos Python**: 4
-- 📝 **Linhas de Código**: 1,500+
-- 🧪 **Casos de Teste**: 20+
-- 🎨 **Templates HTML**: 8
-- 🌐 **Deploy**: Render (Online)
-- 📅 **Última Modificação**: 25/06/2025 22:01
+1. **Unitários** (`tests/test_unit.py`)
+   - Testes de funções individuais
+   - APIs e cálculos
+   - Estrutura de dados
+
+2. **Integração** (`tests/test_integration.py`)
+   - Testes de fluxo completo
+   - Integração entre componentes
+   - Formulários e navegação
+
+3. **Performance** (`tests/test_performance.py`)
+   - Testes de velocidade de resposta
+   - Carga e concorrência
+
+4. **Segurança** (`tests/test_security.py`)
+   - Validação de entrada
+   - Headers de segurança
+   - Proteção contra injeções
+
+5. **Acessibilidade** (`tests/test_accessibility.py`)
+   - Conformidade WCAG
+   - Navegação por teclado
+   - Estrutura semântica
+
+6. **E2E** (`cypress/e2e/health-app.cy.js`)
+   - Testes end-to-end com Cypress
+   - Fluxos completos do usuário
+   - Responsividade
 
 ## 🚀 Instalação e Execução
 
-### ⚠️ Pré-requisitos Importantes
+### Pré-requisitos
 
-#### 1. Instalação do Python
-**Problema comum no Windows**: Se você receber a mensagem "Python não foi encontrado", siga estas etapas:
+- Python 3.8+
+- Node.js 14+
+- npm ou yarn
 
-**Opção 1 - Microsoft Store (Recomendado):**
+### Backend (Flask)
+
 ```bash
-# Abra o Microsoft Store e procure por "Python"
-# Instale a versão mais recente (3.11 ou superior)
-```
-
-**Opção 2 - Download Direto:**
-1. Acesse [python.org](https://www.python.org/downloads/)
-2. Baixe a versão mais recente para Windows
-3. **IMPORTANTE**: Durante a instalação, marque "Add Python to PATH"
-4. Reinicie o terminal após a instalação
-
-**Opção 3 - Verificar instalação:**
-```bash
-# Verifique se o Python está instalado
-python --version
-# ou
-python3 --version
-```
-
-#### 2. Verificar pip
-```bash
-# Verifique se o pip está disponível
-pip --version
-# ou
-pip3 --version
-```
-
-### 🔧 Configuração do Projeto
-
-#### 1. Clone o repositório
-```bash
-git clone https://github.com/evelisesan/Pagina_de_saude.git
-cd Pagina_de_saude
-```
-
-#### 2. Crie um ambiente virtual (Recomendado)
-```bash
-# Windows
-python -m venv venv
-venv\Scripts\activate
-
-# Linux/Mac
-python3 -m venv venv
-source venv/bin/activate
-```
-
-#### 3. Instale as dependências
-```bash
+# Instalar dependências Python
 pip install -r requirements.txt
-```
 
-#### 4. Configure pre-commit hooks (Opcional)
-```bash
-pip install pre-commit
-pre-commit install
-```
-
-#### 5. Execute a aplicação
-```bash
+# Executar aplicação
 python app.py
 ```
 
-#### 6. Acesse a aplicação
-Abra seu navegador e acesse: `http://localhost:5000`
+### Frontend e Testes E2E
 
-## 🌐 Deploy no Render
-
-### ✅ Deploy Automático Configurado
-A aplicação está configurada para deploy automático no Render:
-
-1. **Repositório**: [https://github.com/evelisesan/Pagina_de_saude](https://github.com/evelisesan/Pagina_de_saude)
-2. **URL de Produção**: [https://pagina-de-saude.onrender.com/](https://pagina-de-saude.onrender.com/)
-3. **Deploy Automático**: Ativado via GitHub
-4. **SSL**: Configurado automaticamente
-
-### 🔧 Configuração do Deploy
-O arquivo `render.yaml` está configurado para:
-- **Build Command**: `pip install -r requirements.txt`
-- **Start Command**: `gunicorn app:app`
-- **Environment**: Python 3.9+
-
-### 🧪 Teste do Deploy
-Use o script `test_deploy.py` para verificar se a aplicação está funcionando:
 ```bash
-python test_deploy.py
-# Digite a URL: https://pagina-de-saude.onrender.com/
+# Instalar dependências Node.js
+npm install
+
+# Executar testes E2E
+npm run test:e2e
 ```
 
-## 🧪 Executando os Testes TDD
+## 🧪 Executando os Testes
 
-### 1. Instale o Robot Framework
+### Todos os Testes
+
 ```bash
-pip install robotframework robotframework-seleniumlibrary
+# Executar toda a pirâmide de testes
+python tests/run_all_tests.py
+
+# Ou executar tudo incluindo E2E
+npm run test:all
 ```
 
-### 2. Execute os testes
+### Testes Específicos
+
 ```bash
-# Executar todos os testes
-py -m robot tests/health_page_tests.robot
+# Testes unitários
+python -m pytest tests/test_unit.py -v
 
-# Executar com relatórios detalhados
-py -m robot --outputdir test_results tests/health_page_tests.robot
+# Testes de integração
+python -m pytest tests/test_integration.py -v
 
-# Executar testes específicos por tag
-py -m robot --include navigation tests/health_page_tests.robot
-py -m robot --include calories tests/health_page_tests.robot
-py -m robot --include recipes tests/health_page_tests.robot
-py -m robot --include exercises tests/health_page_tests.robot
+# Testes de segurança
+python -m pytest tests/test_security.py -v
+
+# Testes de acessibilidade
+python -m pytest tests/test_accessibility.py -v
+
+# Testes E2E (Cypress)
+npm run test:e2e
 ```
 
-### 3. Visualizar relatórios
-Após a execução, os relatórios serão gerados em:
-- `test_results/log.html` - Log detalhado
-- `test_results/report.html` - Relatório de resultados
-- `test_results/output.xml` - Dados XML dos testes
+### Testes E2E Interativos
 
-## 📊 Cenários de Teste Implementados
+```bash
+# Abrir interface do Cypress
+npm run test:e2e:open
 
-### 🧭 Testes de Navegação
-- ✅ Verificação de carregamento da página principal
-- ✅ Menu de navegação funcional
-- ✅ Menu mobile responsivo
-- ✅ Responsividade em dispositivos móveis
-
-### 🧮 Testes de Calculadora de Calorias
-- ✅ Presença de todos os campos necessários
-- ✅ Cálculo correto para pessoa de 45 anos
-- ✅ Validação de resultados
-- ✅ Interface responsiva
-
-### 🍽️ Testes de Receitas
-- ✅ Listagem de receitas com filtros
-- ✅ Busca por ingredientes com resultados dinâmicos
-- ✅ Detalhes completos das receitas
-- ✅ Filtros funcionais (vegetariano, baixa caloria)
-- ✅ Sistema de busca com classe `search-result`
-
-### 💪 Testes de Exercícios
-- ✅ Listagem de exercícios para 40+
-- ✅ Filtros por dificuldade
-- ✅ Detalhes completos dos exercícios
-- ✅ Informações de segurança
-- ✅ Vídeos demonstrativos
-
-### 📱 Testes de Performance e Acessibilidade
-- ✅ Tempo de carregamento da página
-- ✅ Elementos básicos de acessibilidade
-- ✅ Responsividade
-- ✅ Menu mobile funcional
-
-### 🎨 Testes de Design
-- ✅ Tema escuro aplicado corretamente
-- ✅ Cores personalizadas funcionando
-- ✅ Elementos visuais responsivos
-
-## 🎨 Design e UX
-
-### 📱 Design Responsivo
-- **Mobile First**: Otimizado para dispositivos móveis
-- **Breakpoints**: 768px, 992px, 1200px
-- **Menu Mobile**: Hambúrguer funcional com overlay
-- **Touch Friendly**: Botões e links otimizados para touch
-
-### 🎨 Sistema de Cores
-- **Variáveis CSS**: Fácil personalização
-- **Contraste**: Otimizado para acessibilidade
-- **Gradientes**: Efeitos visuais modernos
-- **Hover Effects**: Interações suaves
-
-### ⚡ Performance
-- **Carregamento Rápido**: Otimizado para velocidade
-- **Lazy Loading**: Imagens carregadas sob demanda
-- **Minificação**: CSS e JS otimizados
-- **CDN**: Bootstrap e Font Awesome via CDN
-
-## 🔧 APIs Disponíveis
-
-### 📡 Endpoints REST
-- `GET /api/receitas` - Lista todas as receitas
-- `GET /api/exercicios` - Lista todos os exercícios
-- `GET /api/buscar-receitas?q=termo` - Busca receitas por termo
-- `GET /api/calcular-calorias` - Calcula calorias (POST)
-- `GET /api/calcular-imc` - Calcula IMC (POST)
-
-### 📊 Formato de Resposta
-```json
-{
-    "status": "success",
-    "data": [...],
-    "message": "Operação realizada com sucesso"
-}
+# Executar com navegador visível
+npm run test:e2e:headed
 ```
 
-## 🚀 Melhorias Implementadas
+## 📊 Funcionalidades
 
-### ✅ Correções de Testes
-- **Seletores CSS**: Corrigidos para elementos existentes
-- **Timeouts**: Aumentados para 20s
-- **Wait Until**: Implementado para elementos dinâmicos
-- **ScrollIntoView**: Adicionado antes de cliques
+### Calculadora de Calorias
+- Cálculo baseado na fórmula de Harris-Benedict
+- Suporte a diferentes níveis de atividade
+- Validação robusta de entrada
 
-### ✅ Funcionalidades Mobile
-- **Menu Mobile**: Implementado com JavaScript
-- **Overlay**: Fundo escuro ao abrir menu
-- **Animações**: Transições suaves
-- **Touch Events**: Otimizado para dispositivos móveis
+### Calculadora de IMC
+- Cálculo automático de IMC
+- Classificação automática
+- Validação de dados
 
-### ✅ Sistema de Busca
-- **Busca Dinâmica**: Resultados em tempo real
-- **Filtros**: Múltiplos filtros funcionais
-- **Classe CSS**: `search-result` nos resultados
-- **Scroll Automático**: Para resultados da busca
+### Receitas Saudáveis
+- Catálogo de receitas nutritivas
+- Filtros por categoria, dieta e orçamento
+- Busca por ingredientes
 
-### ✅ Deploy e CI/CD
-- **Render**: Configurado para deploy automático
-- **GitHub Actions**: Workflow de atualização
-- **Pre-commit Hooks**: Validação automática
-- **Testes Automatizados**: Verificação contínua
+### Exercícios
+- Exercícios adaptados para iniciantes
+- Instruções detalhadas
+- Filtros por dificuldade
 
-### ✅ Nova Paleta de Cores Pastéis
-- **Azul Pastel**: Cor principal para elementos de destaque
-- **Rosa Pastel**: Destaques especiais e badges
-- **Laranja Pastel**: Hover de links e interações
-- **Lilás Pastel**: Categorização de receitas vegetarianas
-- **Verde Removido**: Substituído por paleta mais suave
-- **Documentação**: Arquivo `paleta_cores_pasteis.md` criado
+## 🔒 Segurança
 
-## 📈 Métricas de Qualidade
+- Validação rigorosa de entrada
+- Proteção contra injeção SQL e XSS
+- Headers de segurança configurados
+- Rate limiting implementado
 
-### 🧪 Cobertura de Testes
-- **Navegação**: 100% coberto
-- **Funcionalidades**: 95% coberto
-- **Responsividade**: 90% coberto
-- **Performance**: 85% coberto
+## ♿ Acessibilidade
 
-### 🎯 Funcionalidades Testadas
-- ✅ 7/7 páginas funcionando
-- ✅ APIs respondendo corretamente
-- ✅ Menu mobile funcional
-- ✅ Sistema de busca ativo
-- ✅ Tema escuro aplicado
+- Conformidade com WCAG 2.1
+- Navegação por teclado
+- Estrutura semântica
+- Responsividade completa
+
+## 📈 Performance
+
+- Otimização de consultas
+- Cache de dados
+- Compressão de assets
+- Lazy loading
+
+## 🛠️ Tecnologias
+
+### Backend
+- **Flask**: Framework web
+- **Jinja2**: Template engine
+- **Flask-CORS**: Cross-origin resource sharing
+
+### Frontend
+- **Bootstrap 5**: Framework CSS
+- **Font Awesome**: Ícones
+- **JavaScript**: Interatividade
+
+### Testes
+- **pytest**: Framework de testes Python
+- **Cypress**: Testes E2E
+- **unittest**: Testes unitários e integração
+
+## 📁 Estrutura do Projeto
+
+```
+Projeto_teste/
+├── app.py                 # Aplicação Flask principal
+├── requirements.txt       # Dependências Python
+├── package.json          # Dependências Node.js
+├── cypress.config.js     # Configuração Cypress
+├── templates/            # Templates HTML
+├── cypress/              # Testes E2E
+│   ├── e2e/
+│   │   └── health-app.cy.js
+│   └── support/
+│       ├── commands.js
+│       └── e2e.js
+├── tests/                # Testes Python
+│   ├── test_unit.py
+│   ├── test_integration.py
+│   ├── test_security.py
+│   ├── test_accessibility.py
+│   └── run_all_tests.py
+└── test_results/         # Resultados dos testes
+```
 
 ## 🤝 Contribuição
 
-### 📝 Como Contribuir
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-### 🧪 Executar Testes Antes de Contribuir
-```bash
-# Execute todos os testes
-py -m robot tests/health_page_tests.robot
-
-# Verifique se não há regressões
-python test_deploy.py
-```
-
-## 📞 Suporte
-
-### 🐛 Reportar Bugs
-- Use as [Issues do GitHub](https://github.com/evelisesan/Pagina_de_saude/issues)
-- Inclua screenshots se possível
-- Descreva os passos para reproduzir
-
-### 💡 Sugestões
-- Abra uma [Issue](https://github.com/evelisesan/Pagina_de_saude/issues) com a tag "enhancement"
-- Descreva a funcionalidade desejada
-- Inclua exemplos de uso se possível
+1. Fork o projeto
+2. Crie uma branch para sua feature
+3. Adicione testes para novas funcionalidades
+4. Execute todos os testes
+5. Faça commit das mudanças
+6. Abra um Pull Request
 
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
-## 🙏 Agradecimentos
+## 📞 Suporte
 
-- **Bootstrap**: Framework CSS responsivo
-- **Font Awesome**: Ícones
-- **Robot Framework**: Framework de testes
-- **Render**: Plataforma de deploy
-- **Flask**: Framework web Python
-
----
-
-**Última atualização**: 25/06/2025 22:01  
-**Versão**: 2.0.0  
-**Status**: ✅ Produção  
-**URL**: [https://pagina-de-saude.onrender.com/](https://pagina-de-saude.onrender.com/)
+Para dúvidas ou problemas:
+- Abra uma issue no GitHub
+- Consulte a documentação dos testes
+- Verifique os logs de erro

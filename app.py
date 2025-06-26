@@ -134,65 +134,111 @@ def imc():
 @app.route('/api/calcular-calorias', methods=['POST'])
 def calcular_calorias():
     """API para calcular calorias diárias"""
-    data = request.get_json()
-    
-    idade = int(data.get('idade', 0))
-    peso = float(data.get('peso', 0))
-    altura = float(data.get('altura', 0))
-    genero = data.get('genero', 'masculino')
-    nivel_atividade = data.get('nivel_atividade', 'sedentario')
-    
-    # Fórmula de Harris-Benedict
-    if genero == 'masculino':
-        tmb = 88.362 + (13.397 * peso) + (4.799 * altura) - (5.677 * idade)
-    else:
-        tmb = 447.593 + (9.247 * peso) + (3.098 * altura) - (4.330 * idade)
-    
-    # Fatores de atividade
-    fatores = {
-        'sedentario': 1.2,
-        'leve': 1.375,
-        'moderado': 1.55,
-        'ativo': 1.725,
-        'muito_ativo': 1.9
-    }
-    
-    calorias_diarias = tmb * fatores.get(nivel_atividade, 1.2)
-    
-    return jsonify({
-        'calorias_diarias': round(calorias_diarias),
-        'tmb': round(tmb),
-        'nivel_atividade': nivel_atividade
-    })
+    try:
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'erro': 'Dados JSON são obrigatórios'}), 400
+        
+        # Validação de tipos e valores
+        try:
+            idade = int(data.get('idade', 0))
+            peso = float(data.get('peso', 0))
+            altura = float(data.get('altura', 0))
+        except (ValueError, TypeError):
+            return jsonify({'erro': 'Idade, peso e altura devem ser números válidos'}), 400
+        
+        genero = data.get('genero', 'masculino')
+        nivel_atividade = data.get('nivel_atividade', 'sedentario')
+        
+        # Validações de valores
+        if idade <= 0 or idade > 120:
+            return jsonify({'erro': 'Idade deve estar entre 1 e 120 anos'}), 400
+        
+        if peso <= 0 or peso > 500:
+            return jsonify({'erro': 'Peso deve estar entre 1 e 500 kg'}), 400
+        
+        if altura <= 0 or altura > 3:
+            return jsonify({'erro': 'Altura deve estar entre 0.1 e 3.0 metros'}), 400
+        
+        if genero not in ['masculino', 'feminino']:
+            return jsonify({'erro': 'Gênero deve ser masculino ou feminino'}), 400
+        
+        if nivel_atividade not in ['sedentario', 'leve', 'moderado', 'ativo', 'muito_ativo']:
+            return jsonify({'erro': 'Nível de atividade inválido'}), 400
+        
+        # Fórmula de Harris-Benedict
+        if genero == 'masculino':
+            tmb = 88.362 + (13.397 * peso) + (4.799 * altura) - (5.677 * idade)
+        else:
+            tmb = 447.593 + (9.247 * peso) + (3.098 * altura) - (4.330 * idade)
+        
+        # Fatores de atividade
+        fatores = {
+            'sedentario': 1.2,
+            'leve': 1.375,
+            'moderado': 1.55,
+            'ativo': 1.725,
+            'muito_ativo': 1.9
+        }
+        
+        calorias_diarias = tmb * fatores.get(nivel_atividade, 1.2)
+        
+        return jsonify({
+            'calorias_diarias': round(calorias_diarias),
+            'tmb': round(tmb),
+            'nivel_atividade': nivel_atividade
+        })
+        
+    except Exception as e:
+        return jsonify({'erro': 'Erro interno do servidor'}), 500
 
 @app.route('/api/calcular-imc', methods=['POST'])
 def calcular_imc():
     """API para calcular IMC"""
-    data = request.get_json()
-    
-    peso = float(data.get('peso', 0))
-    altura = float(data.get('altura', 0))
-    
-    imc = peso / (altura ** 2)
-    
-    # Classificação do IMC
-    if imc < 18.5:
-        classificacao = "Abaixo do Peso"
-    elif imc < 25:
-        classificacao = "Peso Normal"
-    elif imc < 30:
-        classificacao = "Sobrepeso"
-    elif imc < 35:
-        classificacao = "Obesidade Grau I"
-    elif imc < 40:
-        classificacao = "Obesidade Grau II"
-    else:
-        classificacao = "Obesidade Grau III"
-    
-    return jsonify({
-        'imc': round(imc, 2),
-        'classificacao': classificacao
-    })
+    try:
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'erro': 'Dados JSON são obrigatórios'}), 400
+        
+        # Validação de tipos e valores
+        try:
+            peso = float(data.get('peso', 0))
+            altura = float(data.get('altura', 0))
+        except (ValueError, TypeError):
+            return jsonify({'erro': 'Peso e altura devem ser números válidos'}), 400
+        
+        # Validações de valores
+        if peso <= 0 or peso > 500:
+            return jsonify({'erro': 'Peso deve estar entre 1 e 500 kg'}), 400
+        
+        if altura <= 0 or altura > 3:
+            return jsonify({'erro': 'Altura deve estar entre 0.1 e 3.0 metros'}), 400
+        
+        imc = peso / (altura ** 2)
+        
+        # Classificação do IMC
+        if imc < 18.5:
+            classificacao = "Abaixo do Peso"
+        elif imc < 25:
+            classificacao = "Peso Normal"
+        elif imc < 30:
+            classificacao = "Sobrepeso"
+        elif imc < 35:
+            classificacao = "Obesidade Grau I"
+        elif imc < 40:
+            classificacao = "Obesidade Grau II"
+        else:
+            classificacao = "Obesidade Grau III"
+        
+        return jsonify({
+            'imc': round(imc, 2),
+            'classificacao': classificacao
+        })
+        
+    except Exception as e:
+        return jsonify({'erro': 'Erro interno do servidor'}), 500
 
 @app.route('/api/receitas')
 def api_receitas():
