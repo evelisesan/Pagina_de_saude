@@ -45,13 +45,20 @@ Este projeto implementa uma página web completa sobre saúde, controle de calor
 
 ## 🎨 Temas e Personalização
 
+### 🌈 Paleta de Cores Pastéis (Atual)
+- **Azul Pastel** (`#87CEEB`): Cor principal - navbar, botões, ícones
+- **Azul Claro** (`#B0E0E6`): Cor secundária - gradientes, hover
+- **Rosa Pastel** (`#FFB6C1`): Cor de destaque - badges, alertas
+- **Laranja Pastel** (`#FFDAB9`): Hover de links, elementos interativos
+- **Lilás Pastel** (`#E6E6FA`): Receitas vegetarianas, elementos especiais
+
 ### 🌙 Tema Escuro (Disponível)
 - Fundo escuro para melhor experiência noturna
 - Cores contrastantes para melhor legibilidade
 - Cards com fundo azul escuro
 - Campos de formulário adaptados
 
-### 🌿 Tema Verde (Padrão)
+### 🌿 Tema Verde (Anterior)
 - Cores naturais e relaxantes
 - Verde como cor principal (#2ecc71)
 - Laranja como cor de destaque (#f39c12)
@@ -62,11 +69,13 @@ O projeto suporta fácil personalização de cores através das variáveis CSS n
 
 ```css
 :root {
-    --primary-color: #2ecc71;    /* Cor principal */
-    --secondary-color: #27ae60;  /* Cor secundária */
-    --accent-color: #f39c12;     /* Cor de destaque */
+    --primary-color: #87CEEB;    /* Azul pastel */
+    --secondary-color: #B0E0E6;  /* Azul claro */
+    --accent-color: #FFB6C1;     /* Rosa pastel */
+    --accent-orange: #FFDAB9;    /* Laranja pastel */
+    --accent-lilac: #E6E6FA;     /* Lilás pastel */
     --text-color: #2c3e50;       /* Cor do texto */
-    --light-bg: #ecf0f1;         /* Fundo claro */
+    --light-bg: #f8f9fa;         /* Fundo claro */
 }
 ```
 
@@ -105,7 +114,7 @@ Projeto_teste/
 - 🧪 **Casos de Teste**: 20+
 - 🎨 **Templates HTML**: 8
 - 🌐 **Deploy**: Render (Online)
-- 📅 **Última Modificação**: 25/06/2025 21:46
+- 📅 **Última Modificação**: 25/06/2025 22:01
 
 ## 🚀 Instalação e Execução
 
@@ -334,6 +343,14 @@ Após a execução, os relatórios serão gerados em:
 - **Pre-commit Hooks**: Validação automática
 - **Testes Automatizados**: Verificação contínua
 
+### ✅ Nova Paleta de Cores Pastéis
+- **Azul Pastel**: Cor principal para elementos de destaque
+- **Rosa Pastel**: Destaques especiais e badges
+- **Laranja Pastel**: Hover de links e interações
+- **Lilás Pastel**: Categorização de receitas vegetarianas
+- **Verde Removido**: Substituído por paleta mais suave
+- **Documentação**: Arquivo `paleta_cores_pasteis.md` criado
+
 ## 📈 Métricas de Qualidade
 
 ### 🧪 Cobertura de Testes
@@ -393,7 +410,7 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 
 ---
 
-**Última atualização**: 25/06/2025 21:46  
+**Última atualização**: 25/06/2025 22:01  
 **Versão**: 2.0.0  
 **Status**: ✅ Produção  
 **URL**: [https://pagina-de-saude.onrender.com/](https://pagina-de-saude.onrender.com/)
