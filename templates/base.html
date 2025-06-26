@@ -8,18 +8,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #FFFFE0;
-            --secondary-color: #e6e6b8;
-            --accent-color: #ff6b6b;
-            --text-color: #ffffff;
-            --light-bg: #2c3e50;
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --accent-color: #f39c12;
+            --text-color: #2c3e50;
+            --light-bg: #ecf0f1;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-color);
             line-height: 1.6;
-            background-color: #1a1a1a;
         }
         
         .navbar {
@@ -53,11 +52,9 @@
         .card {
             border: none;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             margin-bottom: 20px;
-            background-color: #2c3e50;
-            color: var(--text-color);
         }
         
         .card:hover {
@@ -86,7 +83,7 @@
         }
         
         .footer {
-            background: #1a1a1a;
+            background: var(--text-color);
             color: white;
             padding: 40px 0;
             margin-top: 60px;
@@ -122,7 +119,7 @@
             right: -300px;
             width: 300px;
             height: 100%;
-            background: #2c3e50;
+            background: white;
             z-index: 1050;
             transition: right 0.3s ease;
             padding: 2rem;
@@ -150,7 +147,7 @@
         .mobile-menu-nav .nav-link {
             color: var(--text-color) !important;
             padding: 1rem 0;
-            border-bottom: 1px solid #34495e;
+            border-bottom: 1px solid #eee;
             font-size: 1.1rem;
         }
         
@@ -175,16 +172,13 @@
         
         .form-control {
             border-radius: 10px;
-            border: 2px solid #34495e;
+            border: 2px solid #e9ecef;
             padding: 12px 15px;
-            background-color: #34495e;
-            color: var(--text-color);
         }
         
         .form-control:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(255, 255, 224, 0.25);
-            background-color: #34495e;
+            box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
         }
         
         .badge {
