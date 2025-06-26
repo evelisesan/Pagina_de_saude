@@ -1,4 +1,4 @@
-# Saúde e Bem-estar - Página Web TDD com Robot Framework
+# Saúde e Bem-estar 
 
 > **ATENÇÃO:** Todas as alterações, correções e melhorias no projeto devem ser refletidas e documentadas neste README. O sistema de atualização automática garante que as informações estejam sempre corretas, mas revise e rode o script de atualização (`python update_readme.py`) sempre que fizer mudanças importantes!
 
